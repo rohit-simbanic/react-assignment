@@ -1,0 +1,40 @@
+.headerMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: aqua;
+  padding: 12px 12px;
+  font-size: 18px;
+}
+.logo {
+  font-size: large;
+  font-weight: bold;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: tomato;
+  width: 50%;
+  margin: auto;
+  padding: 70px 0;
+}
+input {
+  padding: 5px;
+  border: 1px solid gray;
+  margin: 7px;
+  width: 67%;
+  height: 26px;
+}
+input:focus {
+  outline: none;
+}
+button {
+  padding: 9px 22px;
+  border-radius: 0;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  background: aqua;
+}
