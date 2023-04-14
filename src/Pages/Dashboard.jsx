@@ -27,6 +27,7 @@ const Dashboard = () => {
     // console.log(id);
     setEditableItem(userData.filter((user) => user.id === id));
     setEdit(true);
+    setShowForm(false);
   };
   useEffect(() => {}, [userData]);
   console.log(userData);

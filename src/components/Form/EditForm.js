@@ -23,7 +23,7 @@ const EditForm = ({ setUserData, userData, editableItem, setEdit }) => {
       ...userData.filter((item) => item.id !== editUser.id),
       editUser,
     ];
-    console.log(elements);
+    // console.log(elements);
     const sort = elements.sort((a, b) => a.id - b.id);
     // console.log(sort);
     setUserData(sort);
