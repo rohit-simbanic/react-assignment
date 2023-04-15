@@ -4,7 +4,14 @@ import styles from "./header.module.css";
 
 const Form = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
-  console.log(formData);
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem(localStorage.getItem("authenticated") || false)
+  );
+  const users = [{ username: "rohit_mondal", password: "123456" }];
+  const navigate = useNavigate();
+
+  console.log(authenticated);
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -12,15 +19,15 @@ const Form = () => {
       return { ...prev, [name]: value };
     });
   };
-  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData.username, formData.password);
-    if (
-      formData.username === "rohit_mondal" &&
-      formData.password === "123456"
-    ) {
-      return navigate("/dashboard");
+    const account = users.find((user) => user.username === formData.username);
+    console.log(account);
+    if (account && account.password === formData.password) {
+      setAuthenticated(true);
+      localStorage.setItem("authenticated", true);
+      navigate("/dashboard");
     } else {
       alert("Wrong Credentials");
     }

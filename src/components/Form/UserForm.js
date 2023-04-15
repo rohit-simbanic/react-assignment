@@ -18,7 +18,7 @@ const UserForm = ({ userData, setUserData, setShowForm }) => {
     setShowForm(false);
   };
 
-  //   console.log(users);
+  console.log(users);
 
   return (
     <>
@@ -31,7 +31,7 @@ const UserForm = ({ userData, setUserData, setShowForm }) => {
           onChange={handleChange}
           placeholder="User Name"
           minLength="3"
-          maxLength="10"
+          maxLength="15"
         />
         <input
           type="email"

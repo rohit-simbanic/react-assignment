@@ -6,14 +6,26 @@ import { MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
 import UserForm from "../components/Form/UserForm";
 import EditForm from "../components/Form/EditForm";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem("authenticated")
+  );
   const [showForm, setShowForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editableItem, setEditableItem] = useState({});
   const data = useCustomContext();
   const [userData, setUserData] = useState(data);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (authenticated === null) {
+      navigate("/");
+    }
+  });
+  console.log(authenticated);
+  useEffect(() => {}, [userData]);
   //   console.log(userData);
   const clickRedirect = () => {
     setShowForm(!showForm);
@@ -29,21 +41,24 @@ const Dashboard = () => {
     setEdit(true);
     setShowForm(false);
   };
-  useEffect(() => {}, [userData]);
-  console.log(userData);
+
+  // console.log(userData);
   //   console.log(editableItem);
+
   return (
     <div>
       <Header />
       <div className="app-container">
         <h2>User Database:</h2>
-        <h2>
-          Create a user:{" "}
-          <span onClick={clickRedirect}>
-            {" "}
-            <GrAdd />
-          </span>
-        </h2>
+        {!edit && (
+          <h2>
+            Create a user:{" "}
+            <span onClick={clickRedirect}>
+              {" "}
+              <GrAdd />
+            </span>
+          </h2>
+        )}
         {showForm && (
           <UserForm
             setUserData={setUserData}
