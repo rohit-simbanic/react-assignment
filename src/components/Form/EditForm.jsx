@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import styles from "./header.module.css";
+import styles from "./form.module.css";
+import { RxCross1 } from "react-icons/rx";
 
 const EditForm = ({ setUserData, userData, editableItem, setEdit }) => {
   const [editUser, setEditUser] = useState(editableItem[0]);
@@ -31,11 +32,17 @@ const EditForm = ({ setUserData, userData, editableItem, setEdit }) => {
     setEdit(false);
   };
 
+  const handleCross = () => {
+    setEdit(false);
+  };
+
   console.log(editUser);
 
   return (
     <>
+      {" "}
       <form onSubmit={handleSubmit} className={styles.form}>
+        <RxCross1 className="cross-icon" onClick={handleCross} />
         <input
           ref={userNameRef}
           type="text"

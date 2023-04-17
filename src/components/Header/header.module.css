@@ -1,0 +1,12 @@
+.headerMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: aqua;
+  padding: 12px 12px;
+  font-size: 18px;
+}
+.logo {
+  font-size: large;
+  font-weight: bold;
+}

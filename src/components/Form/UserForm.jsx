@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import styles from "./header.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "./form.module.css";
+// import { useNavigate } from "react-router-dom";
+import { useCustomContext } from "../../ContextAPI/CreateContext";
 
-const UserForm = ({ userData, setUserData, setShowForm }) => {
+const UserForm = () => {
+  const collectedData = JSON.parse(localStorage.getItem("datas"));
+  const collectedDataCustom = useCustomContext();
+  const data = collectedData || collectedDataCustom;
+  const [notification, setNotification] = useState("");
+  const [userData, setUserData] = useState(data);
   const [users, setUsers] = useState([]);
+  const [change, setChange] = useState(false);
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -12,13 +21,28 @@ const UserForm = ({ userData, setUserData, setShowForm }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setUserData([...userData, users]);
-    e.target.reset();
-    setShowForm(false);
+    try {
+      e.preventDefault();
+      setUserData([...userData, users]);
+      e.target.reset();
+      setChange(!change);
+      setNotification("A new user added!!");
+    } catch (error) {
+      if (error) {
+        setNotification(error);
+      }
+    }
   };
 
-  console.log(users);
+  useEffect(() => {
+    console.log("userform loaded");
+    if (change) {
+      localStorage.setItem("datas", JSON.stringify(userData));
+    }
+  }, [userData]);
+
+  // console.log(data);
+  // console.log(userData);
 
   return (
     <>
@@ -53,6 +77,9 @@ const UserForm = ({ userData, setUserData, setShowForm }) => {
         />
         <button type="submit">Create User</button>
       </form>
+      <div>
+        <h3 style={{ textAlign: "center" }}>{notification && notification}</h3>
+      </div>
     </>
   );
 };

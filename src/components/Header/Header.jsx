@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./header.module.css";
+import { useCustomAuthContext } from "../../ContextAPI/AuthContextApi";
 
 const Header = () => {
-  const [authenticated, setAuthenticated] = useState(
-    localStorage.getItem("authenticated")
-  );
+  const auth = useCustomAuthContext();
+
   const logOut = () => {
-    setAuthenticated(localStorage.removeItem("authenticated"));
+    localStorage.removeItem("authenticated");
     window.location.reload();
   };
-  useEffect(() => {}, [authenticated]);
-  console.log(authenticated);
+
+  // console.log(authenticated);
   return (
     <header className={styles.headerMain}>
       <div className={styles.logo}>React</div>
@@ -20,13 +20,17 @@ const Header = () => {
           Home
         </Link>
         {"   "}
-        {authenticated && (
+        {auth ? (
           <Link to="/dashboard" style={{ textDecoration: "none" }}>
             Dashboard
           </Link>
+        ) : (
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            Login
+          </Link>
         )}
         <button onClick={logOut}>
-          {authenticated ? "Logout" : "You are logged Out Now"}
+          {auth ? "Logout" : "You are logged Out Now"}
         </button>
       </div>
     </header>

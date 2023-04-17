@@ -1,15 +1,3 @@
-.headerMain {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: aqua;
-  padding: 12px 12px;
-  font-size: 18px;
-}
-.logo {
-  font-size: large;
-  font-weight: bold;
-}
 .form {
   display: flex;
   flex-direction: column;
@@ -18,7 +6,9 @@
   width: 50%;
   margin: auto;
   padding: 70px 0;
+  position: relative;
 }
+
 input {
   padding: 5px;
   border: 1px solid gray;
