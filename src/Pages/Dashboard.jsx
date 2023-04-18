@@ -3,33 +3,31 @@ import Header from "../components/Header/Header";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { BiEdit } from "react-icons/bi";
-import EditForm from "../components/Form/EditForm";
 import { useNavigate } from "react-router-dom";
 import { useCustomContext } from "../ContextAPI/CreateContext";
 import { useCustomAuthContext } from "../ContextAPI/AuthContextApi";
 
 const Dashboard = () => {
   const [edit, setEdit] = useState(false);
-  const [editableItem, setEditableItem] = useState({});
+  // const [editableItem, setEditableItem] = useState({});
   const collectedData = JSON.parse(localStorage.getItem("datas"));
   const collectedDataCustom = useCustomContext();
   const data = collectedData || collectedDataCustom;
 
   // auth
-  const auth = useCustomAuthContext();
+  const { auth } = useCustomAuthContext();
   console.log(auth);
 
   const [userData, setUserData] = useState(data);
   const navigate = useNavigate();
 
-  // console.log(data);
   // redirect to login page if not logged in
   useEffect(() => {
     if (auth === null) {
       navigate("/login");
     }
   });
-  // console.log(authenticated);
+
   useEffect(() => {
     console.log("Data changes");
   }, [userData]);
@@ -44,15 +42,12 @@ const Dashboard = () => {
     localStorage.setItem("datas", JSON.stringify(remainingUser));
     setUserData(remainingUser);
   };
-  const editHandler = (id) => {
-    // console.log(id);
-    setEditableItem(userData.filter((user) => user.id === id));
-    setEdit(true);
-    // setShowForm(false);
-  };
-
-  // console.log(userData);
-  //   console.log(editableItem);
+  // const editHandler = (id) => {
+  //   // console.log(id);
+  //   setEditableItem(userData.filter((user) => user.id === id));
+  //   setEdit(true);
+  //   // setShowForm(false);
+  // };
 
   return (
     <div>
@@ -61,21 +56,24 @@ const Dashboard = () => {
         <h2>User Database:</h2>
         {!edit && (
           <h2>
-            Create a new User:{" "}
-            <button style={{ cursor: "pointer" }} onClick={clickRedirect}>
-              <CiEdit />
+            <button
+              style={{ cursor: "pointer" }}
+              onClick={clickRedirect}
+              value={"Create a new User"}
+            >
+              <CiEdit /> Create a user
             </button>
           </h2>
         )}
 
-        {edit && (
+        {/* {edit && (
           <EditForm
             setUserData={setUserData}
             userData={userData}
             editableItem={editableItem}
             setEdit={setEdit}
           />
-        )}
+        )} */}
         <div style={{ overflowX: "auto" }}>
           <table id="Table1">
             <tbody>
@@ -91,7 +89,7 @@ const Dashboard = () => {
                       <button onClick={() => deleteHandler(person.id)}>
                         <MdDelete />
                       </button>{" "}
-                      <button onClick={() => editHandler(person.id)}>
+                      <button onClick={() => navigate(`/edit/${person.id}`)}>
                         <BiEdit />
                       </button>
                     </td>

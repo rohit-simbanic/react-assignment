@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./header.module.css";
 import { useCustomAuthContext } from "../../ContextAPI/AuthContextApi";
 
 const Header = () => {
-  const auth = useCustomAuthContext();
+  const { auth, setAuth } = useCustomAuthContext();
+  console.log(auth);
 
   const logOut = () => {
     localStorage.removeItem("authenticated");
-    window.location.reload();
+    setAuth(null);
+    // window.location.reload();
   };
+  useEffect(() => {
+    console.log("header loaded");
+    console.log(auth);
+  }, [auth]);
 
   // console.log(authenticated);
   return (

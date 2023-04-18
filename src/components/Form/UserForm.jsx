@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./form.module.css";
 // import { useNavigate } from "react-router-dom";
 import { useCustomContext } from "../../ContextAPI/CreateContext";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = () => {
   const collectedData = JSON.parse(localStorage.getItem("datas"));
@@ -11,12 +12,13 @@ const UserForm = () => {
   const [userData, setUserData] = useState(data);
   const [users, setUsers] = useState([]);
   const [change, setChange] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUsers((prev) => {
-      return { ...prev, id: userData.length, [name]: value };
+      return { ...prev, id: userData.length + 1, [name]: value };
     });
   };
 
@@ -27,6 +29,9 @@ const UserForm = () => {
       e.target.reset();
       setChange(!change);
       setNotification("A new user added!!");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
     } catch (error) {
       if (error) {
         setNotification(error);
@@ -39,7 +44,7 @@ const UserForm = () => {
     if (change) {
       localStorage.setItem("datas", JSON.stringify(userData));
     }
-  }, [userData]);
+  }, [userData, change]);
 
   // console.log(data);
   // console.log(userData);

@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
+import { useCustomAuthContext } from "../../ContextAPI/AuthContextApi";
 
 const Form = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
+
+  const { setAuth } = useCustomAuthContext();
 
   // const [authenticated, setAuthenticated] = useState(
   //   localStorage.getItem(localStorage.getItem("authenticated") || false)
@@ -27,8 +30,8 @@ const Form = () => {
     // console.log(account);
     if (account && account.password === formData.password) {
       // setAuthenticated(true);
-
       localStorage.setItem("authenticated", true);
+      setAuth(true);
       navigate("/dashboard");
     } else {
       alert("Wrong Credentials");

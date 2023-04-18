@@ -4,7 +4,11 @@ const AuthProvider = ({ children }) => {
   const authVal = localStorage.getItem("authenticated");
   const [auth, setAuth] = useState(authVal || null);
   console.log(auth);
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 // custom hook
 

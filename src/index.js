@@ -9,6 +9,7 @@ import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import NewUser from "./Pages/NewUser";
 import { AuthProvider } from "./ContextAPI/AuthContextApi";
+import EditPage from "./Pages/EditPage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/newUser",
     element: <NewUser />,
+  },
+  {
+    path: "/edit/:id",
+    element: <EditPage />,
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));

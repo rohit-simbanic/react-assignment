@@ -5,7 +5,7 @@ import { useCustomAuthContext } from "../ContextAPI/AuthContextApi";
 import { useNavigate } from "react-router-dom";
 
 const NewUser = () => {
-  const auth = useCustomAuthContext();
+  const { auth } = useCustomAuthContext();
   const navigate = useNavigate();
   // redirect to login page if not logged in
   useEffect(() => {
