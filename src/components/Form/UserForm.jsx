@@ -3,6 +3,7 @@ import styles from "./form.module.css";
 // import { useNavigate } from "react-router-dom";
 import { useCustomContext } from "../../ContextAPI/CreateContext";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 const UserForm = () => {
   const collectedData = JSON.parse(localStorage.getItem("datas"));
@@ -14,11 +15,15 @@ const UserForm = () => {
   const [change, setChange] = useState(false);
   const navigate = useNavigate();
 
+  // generate small unique id
+  const unique_id = uuid();
+  const small_id = parseInt(unique_id.slice(0, 8));
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUsers((prev) => {
-      return { ...prev, id: userData.length + 1, [name]: value };
+      return { ...prev, id: small_id, [name]: value };
     });
   };
 
